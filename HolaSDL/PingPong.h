@@ -39,8 +39,14 @@ private:
 	GameManager* gameManager_;
 
 	PhysicsComponent* bounceOnBorderPhysics_;
+	PhysicsComponent* stopOnBordersPhysics_;
+	PhysicsComponent* simpleMovePhysics_;
+
 	RenderComponent* rectangleRenderer_;
 	RenderComponent* imageRenderer_;
+
+	InputComponent* leftPaddleInput_;
+	InputComponent* rightPaddleInput_;
 
 	std::vector<GameObject*> actors_;
 

@@ -14,26 +14,30 @@ void StopOnBordersPhysics::init(GameObject* o) {
 
 
 void StopOnBordersPhysics::update(GameObject* o) {
-	Vector2D<int> position = o->getPosition() + o->getDirection();
+	Vector2D<int> nextPos = o->getPosition() + o->getDirection();
 
-	if (left_ && position.getX() <= 0)
-	{
-		o->setPosition(position.getX() + 5, position.getY());
-		o->setDirection(0, 0);
+	// check if we exit from top/bottpm
+	if (top_ && nextPos.getY() <= 0) {
+		nextPos.setY(0);
+		o->setPosition(nextPos.getX(), 50);
+		o->setDirectionY(0);
 	}
-	else if (right_ && position.getX() >= o->getGame()->getWindowHeight)
-	{
-		o->setPosition(position.getX() - 5, position.getY());
-		o->setDirection(0, 0);
+
+	if (bottom_&& nextPos.getY() >= o->getGame()->getWindowHeight() - o->getHeight()) {
+		nextPos.setY(o->getGame()->getWindowHeight() - o->getHeight());
 	}
-	else if (top_ && position.getY <= 0)
-	{
-		o->setPosition(position.getX(), position.getY() + 5);
-		o->setDirection(0, 0);
+
+	// check if we exit from left/right
+	if (left_ && nextPos.getX() <= 0) {
+		nextPos.setX(0);
+		o->setPosition(nextPos);
 	}
-	else if (bottom_ && position.getY() >= o->getGame()->getWindowHeight)
-	{
-		o->setPosition(position.getX(), position.getY() - 5);
-		o->setDirection(0, 0);
+
+	if (right_
+		&& nextPos.getX()
+		>= o->getGame()->getWindowWidth() - o->getWidth()) {
+		nextPos.setX(o->getGame()->getWindowWidth() - o->getWidth());
 	}
+
+	o->setPosition(nextPos);
 }

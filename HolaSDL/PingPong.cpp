@@ -2,6 +2,9 @@
 #include "BounceOnBorders.h"
 #include "RectRender.h"
 #include "ImageRendered.h"
+#include "StopOnBordersPhysics.h"
+#include "SimpleMovePhysics.h"
+#include "PaddleKeyboardInputComp.h"
 
 PingPong::PingPong() :
 		SDLGame("Ping Pong", _WINDOW_WIDTH_, _WINDOW_HEIGHT_) {
@@ -24,6 +27,12 @@ void PingPong::initGame() {
 	imageRenderer_ = new ImageRendered( getResources()->getTexture(SDLGame::TennisBall) );
 
 	bounceOnBorderPhysics_ = new BounceOnBorders(true, true, true, true);
+	stopOnBordersPhysics_ = new StopOnBordersPhysics(true, true, true, true);
+	simpleMovePhysics_ = new SimpleMovePhysics();
+
+	leftPaddleInput_ = new PaddleKeyboardInputComp(SDLK_w, SDLK_s, SDLK_d, 5);
+	rightPaddleInput_ = new PaddleKeyboardInputComp(SDLK_UP, SDLK_DOWN, SDLK_RIGHT, 5);
+
 
 	// ball
 	ball_ = new GameComponent(this);
@@ -48,6 +57,9 @@ void PingPong::initGame() {
 			(getWindowHeight() - left_paddle_->getHeight()) / 2);
 	left_paddle_->setDirection(0, 0);
 	left_paddle_->setRenderComponent(rectangleRenderer_);
+	left_paddle_->setInputComponent(leftPaddleInput_);
+	left_paddle_->setPhysicsComponent(simpleMovePhysics_);
+	left_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 
 	// right paddle
 	right_paddle_ = new GameComponent(this);
@@ -57,6 +69,9 @@ void PingPong::initGame() {
 			(getWindowHeight() - right_paddle_->getHeight()) / 2);
 	right_paddle_->setDirection(0, 0);
 	right_paddle_->setRenderComponent(rectangleRenderer_);
+	right_paddle_->setInputComponent(rightPaddleInput_);
+	right_paddle_->setPhysicsComponent(simpleMovePhysics_);
+	right_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 
 	// game manager
 	gameManager_ = new GameManager(this);
@@ -74,6 +89,10 @@ void PingPong::closeGame() {
 	delete rectangleRenderer_;
 	delete imageRenderer_;
 	delete bounceOnBorderPhysics_;
+	delete stopOnBordersPhysics_;
+	delete leftPaddleInput_;
+	delete rightPaddleInput_;
+	delete simpleMovePhysics_;
 }
 
 void PingPong::start() {
