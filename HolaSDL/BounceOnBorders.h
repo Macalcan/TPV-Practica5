@@ -5,7 +5,7 @@
 #include "SoundEffect.h"
 
 /*
- *
+ * 
  */
 class BounceOnBorders: public PhysicsComponent {
 public:

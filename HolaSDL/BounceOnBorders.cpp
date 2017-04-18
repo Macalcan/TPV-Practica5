@@ -24,9 +24,7 @@ void BounceOnBorders::update(GameObject* o) {
 		wallHitSound_->play();
 	}
 
-	if (bottom_
-			&& nextPos.getY()
-					>= o->getGame()->getWindowHeight() - o->getHeight()) {
+	if (bottom_&& nextPos.getY() >= o->getGame()->getWindowHeight() - o->getHeight()) {
 		nextPos.setY(o->getGame()->getWindowHeight() - o->getHeight());
 		o->setDirectionY( -1*o->getDirection().getY() );
 		wallHitSound_->play();

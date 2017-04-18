@@ -5,6 +5,7 @@
 #include "StopOnBordersPhysics.h"
 #include "SimpleMovePhysics.h"
 #include "PaddleKeyboardInputComp.h"
+#include "PaddleMouseInputComp.h"
 
 PingPong::PingPong() :
 		SDLGame("Ping Pong", _WINDOW_WIDTH_, _WINDOW_HEIGHT_) {
@@ -31,8 +32,7 @@ void PingPong::initGame() {
 	simpleMovePhysics_ = new SimpleMovePhysics();
 
 	leftPaddleInput_ = new PaddleKeyboardInputComp(SDLK_w, SDLK_s, SDLK_d, 5);
-	rightPaddleInput_ = new PaddleKeyboardInputComp(SDLK_UP, SDLK_DOWN, SDLK_RIGHT, 5);
-
+	rightPaddleInput_ = new PaddleMouseInputComp(5);
 
 	// ball
 	ball_ = new GameComponent(this);

@@ -47,6 +47,7 @@ private:
 
 	InputComponent* leftPaddleInput_;
 	InputComponent* rightPaddleInput_;
+	
 
 	std::vector<GameObject*> actors_;
 
