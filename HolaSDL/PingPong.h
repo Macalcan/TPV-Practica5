@@ -41,6 +41,7 @@ private:
 	PhysicsComponent* bounceOnBorderPhysics_;
 	PhysicsComponent* stopOnBordersPhysics_;
 	PhysicsComponent* simpleMovePhysics_;
+	PhysicsComponent* paddleAIPhysics_;
 
 	RenderComponent* rectangleRenderer_;
 	RenderComponent* imageRenderer_;
