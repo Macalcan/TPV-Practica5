@@ -9,6 +9,7 @@ PaddleAIPhysics::~PaddleAIPhysics() {
 }
 
 void PaddleAIPhysics::init(GameObject* paddle) {
+	paddle->setDirectionY(5 * -1);
 }
 
 void PaddleAIPhysics::update(GameObject* paddle) {
@@ -18,31 +19,35 @@ void PaddleAIPhysics::update(GameObject* paddle) {
 	Vector2D<int> y_pred = ball_->getPosition() + ball_->getDirection();
 
 	if (dirBall.getX() < 0)
-	{
-		//cout << "I don't see the ball";
-
-		if (posPaddle.getY() >= paddle->getGame()->getWindowHeight() / 2)
+	{	
+		if (posPaddle.getY() + paddle->getHeight() / 2 == paddle->getGame()->getWindowHeight() / 2)
+		{
+			paddle->setDirectionY(0);
+		}
+		else if (posPaddle.getY() > paddle->getGame()->getWindowHeight() / 2)
 		{
 			paddle->setDirectionY(5 * -1);
 		}
-		else if (posPaddle.getY() <= paddle->getGame()->getWindowHeight() / 2)
+		else if (posPaddle.getY() < paddle->getGame()->getWindowHeight() / 2)
 		{
 			paddle->setDirectionY(5);
 		}
+		
+		
 	}
 	else
 	{
-		//cout << "I see the ball";
-		if (y_pred.getY() >= paddle->getGame()->getWindowHeight() / 2)
+		if (y_pred.getY() > paddle->getGame()->getWindowHeight() / 2 && posPaddle.getY() != paddle->getHeight() + paddle->getHeight() / 2)
 		{
-			cout << "I'm moving";
 			paddle->setDirectionY(5 * -1);
 		}
-		else if (y_pred.getY() <= paddle->getGame()->getWindowHeight() / 2)
+		else if (y_pred.getY() < paddle->getGame()->getWindowHeight() / 2 && posPaddle.getY() != paddle->getHeight() / 2)
 		{
 			paddle->setDirectionY(5);
 		}
 
 	}
+	paddle->setPosition(paddle->getPosition() + paddle->getDirection()); 
+
 }
 

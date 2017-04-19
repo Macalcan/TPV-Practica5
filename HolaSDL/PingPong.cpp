@@ -63,6 +63,7 @@ void PingPong::initGame() {
 	left_paddle_->setPhysicsComponent(simpleMovePhysics_);
 	left_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 
+	//physics
 	paddleAIPhysics_ = new PaddleAIPhysics(ball_);
 
 	// right paddle
@@ -74,9 +75,10 @@ void PingPong::initGame() {
 	right_paddle_->setDirection(0, 0);
 	right_paddle_->setRenderComponent(rectangleRenderer_);
 	//right_paddle_->setInputComponent(rightPaddleInput_);
-	right_paddle_->setPhysicsComponent(simpleMovePhysics_);
-	right_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
+	//right_paddle_->setPhysicsComponent(simpleMovePhysics_);
 	right_paddle_->setPhysicsComponent(paddleAIPhysics_);
+	//right_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
+	
 	
 
 
