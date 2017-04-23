@@ -25,7 +25,10 @@ void ComponentSwitcher::addMode(InputComponent* inputComp,
 	RenderComponent* modeRendered) {
 
 	inputComps_.push_back(inputComp);
-	renderModeComponents_.push_back(modeRendered);
+	physicsComp_.push_back(physicsComp);
+	renderComp_.push_back(renderComp);
+	modeRendered_.push_back(modeRendered);
+
 }
 
 void ComponentSwitcher::setMode(int mode) {
@@ -40,5 +43,5 @@ void ComponentSwitcher::switchToNext() {
 
 void ComponentSwitcher::render() {
 
-	renderModeComponents_[currMode_]->render(this);
+	modeRendered_[currMode_]->render(this);
 }

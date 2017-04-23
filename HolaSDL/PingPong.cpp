@@ -35,9 +35,8 @@ void PingPong::initGame() {
 	
 
 	leftPaddleInput_ = new PaddleKeyboardInputComp(SDLK_a, SDLK_s, SDLK_z, 5);
-	//rightPaddleInput_ = new PaddleMouseInputComp(5);
-
-	
+	rightPaddleInput_ = new PaddleKeyboardInputComp(SDLK_UP, SDLK_DOWN, SDLK_SPACE, 5);
+	mousePaddleInput_ = new PaddleMouseInputComp(5);
 
 	// ball
 	ball_ = new GameComponent(this);
@@ -47,8 +46,7 @@ void PingPong::initGame() {
 	ball_->setPosition(
 			ball_->getGame()->getWindowWidth() / 2 - ball_->getWidth() / 2,
 			ball_->getGame()->getWindowHeight() / 2 - ball_->getHeight() / 2);
-	
-	
+	ball_->setPhysicsComponent(bounceOnBorderPhysics_);
 	ball_->setRenderComponent(rectangleRenderer_);
 
 	// use the following for an image of a tennis ball
@@ -64,8 +62,9 @@ void PingPong::initGame() {
 	left_paddle_->setDirection(0, 0);
 	left_paddle_->setRenderComponent(rectangleRenderer_);
 	left_paddle_->setInputComponent(leftPaddleInput_);
-	left_paddle_->setPhysicsComponent(simpleMovePhysics_);
-	left_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
+	left_paddle_->setPhysicsComponent(paddleAIPhysics_);
+	// left_paddle_->setPhysicsComponent(simpleMovePhysics_);
+	// left_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 
 	//physics
 	paddleAIPhysics_ = new PaddleAIPhysics(ball_);
@@ -78,9 +77,9 @@ void PingPong::initGame() {
 			(getWindowHeight() - right_paddle_->getHeight()) / 2);
 	right_paddle_->setDirection(0, 0);
 	right_paddle_->setRenderComponent(rectangleRenderer_);
-	//right_paddle_->setInputComponent(rightPaddleInput_);
-	//right_paddle_->setPhysicsComponent(simpleMovePhysics_);
+	right_paddle_->setInputComponent(rightPaddleInput_);
 	right_paddle_->setPhysicsComponent(paddleAIPhysics_);
+	//right_paddle_->setPhysicsComponent(simpleMovePhysics_);
 	//right_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 	
 	pingPongPhysics_ = new PingPongPhysics(left_paddle_, right_paddle_);
@@ -107,6 +106,7 @@ void PingPong::closeGame() {
 	delete stopOnBordersPhysics_;
 	delete leftPaddleInput_;
 	delete rightPaddleInput_;
+	delete mousePaddleInput_;
 	delete simpleMovePhysics_;
 	delete paddleAIPhysics_;
 	delete pingPongPhysics_;

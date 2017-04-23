@@ -49,8 +49,8 @@ private:
 
 	InputComponent* leftPaddleInput_;
 	InputComponent* rightPaddleInput_;
+	InputComponent* mousePaddleInput_;
 	
-
 	std::vector<GameObject*> actors_;
 
 	bool exit_;
