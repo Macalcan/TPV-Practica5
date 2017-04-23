@@ -1,7 +1,6 @@
 #include "PaddleMouseInputComp.h"
 
-PaddleMouseInputComp::PaddleMouseInputComp(unsigned int velocity) {
-	velocity_ = velocity;
+PaddleMouseInputComp::PaddleMouseInputComp() {
 }
 
 PaddleMouseInputComp::~PaddleMouseInputComp() {
@@ -15,17 +14,10 @@ void PaddleMouseInputComp::init(GameObject* paddle) {
 void PaddleMouseInputComp::handleInput(SDL_Event event, GameObject* paddle) {
 	
 
-	if (event.type == SDL_MOUSEBUTTONUP) {
-		if (event.button.button == SDL_BUTTON_RIGHT) {
-			paddle->setDirectionY(velocity_ * -1);
-		}
-		else if (event.button.button == SDL_BUTTON_LEFT)
-		{
-			paddle->setDirectionY(velocity_);
-		}
-		else if (event.button.button == SDL_BUTTON_MIDDLE)
-		{
-			paddle->setDirectionY(0);
-		}
-	}
+	int x;
+	int y;
+
+	SDL_GetMouseState(&x, &y);
+
+	paddle->setPositionY(y);
 }

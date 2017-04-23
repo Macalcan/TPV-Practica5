@@ -32,7 +32,9 @@ private:
 	SDL_Keycode ctrlKey_;
 
 	std::vector<InputComponent*> inputComps_;
-	std::vector<RenderComponent*> renderModeComponents_;
+	std::vector<RenderComponent*> modeRendered_;
+	std::vector<PhysicsComponent*> physicsComp_;
+	std::vector<RenderComponent*> renderComp_;
 	int currMode_;
 
 };

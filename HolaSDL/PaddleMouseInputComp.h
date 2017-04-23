@@ -5,14 +5,12 @@
 
 class PaddleMouseInputComp: public InputComponent {
 public:
-	PaddleMouseInputComp(unsigned int velocity);
+	PaddleMouseInputComp();
 	virtual ~PaddleMouseInputComp();
 
 	// from InputComponent
 	void init(GameObject* paddle);
 	void handleInput(SDL_Event e, GameObject* paddle);
-protected:
-	unsigned int velocity_;
 };
 
 #endif /* PADDLEMOUSEINPUTCOMP_H_ */

@@ -12,6 +12,8 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "GameManager.h"
+#include "PingPongPhysics.h"
+#include "ComponentSwitcher.h"
 
 class PingPong: public SDLGame {
 
@@ -36,21 +38,28 @@ private:
 	GameComponent* ball_;
 	GameComponent* left_paddle_;
 	GameComponent* right_paddle_;
+
 	GameManager* gameManager_;
 
 	PhysicsComponent* bounceOnBorderPhysics_;
 	PhysicsComponent* stopOnBordersPhysics_;
-	PhysicsComponent* simpleMovePhysics_;
 	PhysicsComponent* paddleAIPhysics_;
-	PhysicsComponent* pingPongPhysics_;
+
+	PingPongPhysics* pingPongPhysics_;
 
 	RenderComponent* rectangleRenderer_;
 	RenderComponent* imageRenderer_;
+	RenderComponent* imageKeyboard_;
+	RenderComponent* imageMouse_;
+	RenderComponent* imageIA_;
+
+	ComponentSwitcher* switcherLeft_;						
+	ComponentSwitcher* switcherRight_;
 
 	InputComponent* leftPaddleInput_;
 	InputComponent* rightPaddleInput_;
+	InputComponent* mousePaddleInput_;
 	
-
 	std::vector<GameObject*> actors_;
 
 	bool exit_;
