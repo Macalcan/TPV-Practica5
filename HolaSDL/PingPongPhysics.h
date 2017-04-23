@@ -29,9 +29,11 @@ private:
 	GameObject* right_paddle_;
 	std::vector<BallObserver*> observers;
 
+	void prepareRound(GameObject* o);
 	int hits_;
 	int speed_;
 
+	bool stateRound;
 };
 
 #endif /* PINGPONGPHYSICS_H_ */
