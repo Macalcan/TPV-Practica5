@@ -50,7 +50,7 @@ void PaddleAIPhysics::update(GameObject* paddle) {
 			else {
 				vDir = 0;
 			}
-			paddle->setDirectionY(vDir * 5);
+			paddle->setDirectionY(vDir * 10);
 
 		}
 
@@ -68,7 +68,7 @@ void PaddleAIPhysics::update(GameObject* paddle) {
 			else {
 				vDir = 0;
 			}
-			paddle->setDirectionY(vDir * 5);
+			paddle->setDirectionY(vDir * 10);
 		}
 
 
@@ -107,7 +107,7 @@ void PaddleAIPhysics::update(GameObject* paddle) {
 			else {
 				vDir = 0;
 			}
-			paddle->setDirectionY(vDir * 5);
+			paddle->setDirectionY(vDir * 10);
 		}
 
 		// va a golpear
@@ -125,7 +125,7 @@ void PaddleAIPhysics::update(GameObject* paddle) {
 			else {
 				vDir = 0;
 			}
-			paddle->setDirectionY(vDir * 5);
+			paddle->setDirectionY(vDir * 10);
 		}
 
 	}
