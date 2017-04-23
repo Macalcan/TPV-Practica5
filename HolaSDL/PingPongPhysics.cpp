@@ -23,13 +23,13 @@ void PingPongPhysics::update(GameObject* o) {
 	Vector2D<int> posBall = o->getPosition();
 	Vector2D<int> posLeftP = left_paddle_->getPosition();
 	Vector2D<int> posRightP = right_paddle_->getPosition();
-	
 
 	if (posBall.getX() <= posLeftP.getX() + left_paddle_->getWidth() && posBall.getY() >= posLeftP.getY()
 		&& posBall.getY() >= posLeftP.getY() + left_paddle_->getHeight())
 	{
 		hits_++;
 		cout << hits_;
+		onRoundOver();
 	}
 
 	if (hits_ == 5)
@@ -37,13 +37,27 @@ void PingPongPhysics::update(GameObject* o) {
 		hits_ = 0;
 		speed_++;
 	}
+	
+	Vector2D<int> nextPos = o->getPosition() + o->getDirection();
+	BallObserver::EXIT_SIDE eSide;
 
+	if (o->getPosition().getX() == 0)
 	o->setPosition(o->getPosition() + o->getDirection());
 }
 
 
 void PingPongPhysics::resgisterBallObserver(BallObserver* o) {
-	
+	bool search = false;
+
+	int i = 0;
+	while (i < observers.size() && !false)
+	{
+		if (observers[i] == o)
+			search = true;
+	}
+
+	if (!search)
+		observers.emplace_back(o);
 }
 
 

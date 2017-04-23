@@ -15,6 +15,7 @@ public:
 
 private:
 	GameObject* ball_;
+	int vDir;
 };
 
-#endif /* PADDLEAIPHYSICS_H_ */
+#endif / PADDLEAIPHYSICS_H_ /

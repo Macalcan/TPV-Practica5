@@ -85,8 +85,8 @@ void PingPong::initGame() {
 	
 	pingPongPhysics_ = new PingPongPhysics(left_paddle_, right_paddle_);
 	
-	//ball_->setPhysicsComponent(bounceOnBorderPhysics_);
-	ball_->setPhysicsComponent(pingPongPhysics_);
+	ball_->setPhysicsComponent(bounceOnBorderPhysics_);
+	//ball_->setPhysicsComponent(pingPongPhysics_);
 
 	// game manager
 	gameManager_ = new GameManager(this);
@@ -109,6 +109,7 @@ void PingPong::closeGame() {
 	delete rightPaddleInput_;
 	delete simpleMovePhysics_;
 	delete paddleAIPhysics_;
+	delete pingPongPhysics_;
 }
 
 void PingPong::start() {
