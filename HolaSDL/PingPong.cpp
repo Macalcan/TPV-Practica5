@@ -7,6 +7,7 @@
 #include "PaddleKeyboardInputComp.h"
 #include "PaddleMouseInputComp.h"
 #include "PaddleAIPhysics.h"
+#include "PingPongPhysics.h"
 
 PingPong::PingPong() :
 		SDLGame("Ping Pong", _WINDOW_WIDTH_, _WINDOW_HEIGHT_) {
@@ -33,8 +34,10 @@ void PingPong::initGame() {
 	simpleMovePhysics_ = new SimpleMovePhysics();
 	
 
-	leftPaddleInput_ = new PaddleKeyboardInputComp(SDLK_w, SDLK_s, SDLK_d, 5);
-	rightPaddleInput_ = new PaddleMouseInputComp(5);
+	leftPaddleInput_ = new PaddleKeyboardInputComp(SDLK_a, SDLK_s, SDLK_z, 5);
+	//rightPaddleInput_ = new PaddleMouseInputComp(5);
+
+	
 
 	// ball
 	ball_ = new GameComponent(this);
@@ -44,7 +47,8 @@ void PingPong::initGame() {
 	ball_->setPosition(
 			ball_->getGame()->getWindowWidth() / 2 - ball_->getWidth() / 2,
 			ball_->getGame()->getWindowHeight() / 2 - ball_->getHeight() / 2);
-	ball_->setPhysicsComponent(bounceOnBorderPhysics_);
+	
+	
 	ball_->setRenderComponent(rectangleRenderer_);
 
 	// use the following for an image of a tennis ball
@@ -79,8 +83,10 @@ void PingPong::initGame() {
 	right_paddle_->setPhysicsComponent(paddleAIPhysics_);
 	//right_paddle_->setPhysicsComponent(stopOnBordersPhysics_);
 	
+	pingPongPhysics_ = new PingPongPhysics(left_paddle_, right_paddle_);
 	
-
+	//ball_->setPhysicsComponent(bounceOnBorderPhysics_);
+	ball_->setPhysicsComponent(pingPongPhysics_);
 
 	// game manager
 	gameManager_ = new GameManager(this);

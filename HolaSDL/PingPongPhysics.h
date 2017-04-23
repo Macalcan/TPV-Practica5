@@ -4,6 +4,7 @@
 #include "PhysicsComponent.h"
 #include "BallObserver.h"
 #include "GameStateObserver.h"
+#include <vector>
 
 class PingPongPhysics: public PhysicsComponent, public GameStateObserver {
 public:
@@ -26,6 +27,7 @@ public:
 private:
 	GameObject* left_paddle_;
 	GameObject* right_paddle_;
+	std::vector<BallObserver*> observers;
 
 	int hits_;
 	int speed_;

@@ -42,6 +42,7 @@ private:
 	PhysicsComponent* stopOnBordersPhysics_;
 	PhysicsComponent* simpleMovePhysics_;
 	PhysicsComponent* paddleAIPhysics_;
+	PhysicsComponent* pingPongPhysics_;
 
 	RenderComponent* rectangleRenderer_;
 	RenderComponent* imageRenderer_;

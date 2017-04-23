@@ -10,7 +10,7 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 
-class ComponentSwitcher: public GameObject {
+class ComponentSwitcher : public GameObject {
 public:
 
 	ComponentSwitcher(SDLGame* game, GameComponent* actor, SDL_Keycode ctrlKey);
@@ -19,8 +19,8 @@ public:
 	virtual void switchToNext();
 	virtual void setMode(int i);
 	virtual void addMode(InputComponent* inputComp,
-			PhysicsComponent* physicsComp, RenderComponent* renderComp,
-			RenderComponent* modeRendered);
+		PhysicsComponent* physicsComp, RenderComponent* renderComp,
+		RenderComponent* modeRendered);
 
 	// from GameObject
 	virtual void update();
@@ -30,6 +30,10 @@ public:
 private:
 	GameComponent* actor_;
 	SDL_Keycode ctrlKey_;
+
+	std::vector<InputComponent*> inputComps_;
+	std::vector<RenderComponent*> renderModeComponents_;
+	int currMode_;
 
 };
 
