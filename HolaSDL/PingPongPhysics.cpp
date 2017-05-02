@@ -7,13 +7,14 @@ PingPongPhysics::PingPongPhysics(GameObject* left_paddle,
 		GameObject* right_paddle) :
 		left_paddle_(left_paddle), right_paddle_(right_paddle), hits_(
 				0), speed_(8), stateRound(false) {
+	
 }
 
 PingPongPhysics::~PingPongPhysics() {
 }
 
 void PingPongPhysics::init(GameObject* o) {
-
+	stateRound = true;
 	o->setDirection(0, 0);
 	o->setPosition(o->getGame()->getWindowWidth() / 2 - o->getWidth(), o->getGame()->getWindowHeight() / 2 - o->getHeight() / 2);
 }
@@ -161,7 +162,7 @@ void PingPongPhysics::resgisterBallObserver(BallObserver* o) {
 
 void PingPongPhysics::onGameStart() {
 	hits_ = 0;
-	speed_ = 8;
+	speed_ = 5;
 	stateRound = false;
 }
 

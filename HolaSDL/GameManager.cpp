@@ -36,6 +36,7 @@ void GameManager::handleInput(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			if (pointsL == 0 && pointsR == 0 || pointsL == 5 || pointsR == 5)
 			{
+				// pingPongPhysics_->init(ba)
 				pingPongPhysics_->onGameStart();
 				pointsL = 0;
 				pointsR = 0;
