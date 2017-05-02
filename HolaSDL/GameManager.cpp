@@ -3,7 +3,7 @@
 #include <random>
 
 #include "GameManager.h"
-
+using namespace std;
 
 GameManager::GameManager(SDLGame* game) :
 		GameObject(game), pointsL(0), pointsR(0) {
@@ -21,19 +21,27 @@ GameManager::GameManager(SDLGame* game) :
 GameManager::~GameManager() {
 }
 
+
+
 void GameManager::update() {
 
 	points.loadFromText(getGame()->getRenderer(),
 		std::string(std::to_string(pointsR) + " - " + std::to_string(pointsL)),
 		*font_, color);
+	
 }
 
 void GameManager::handleInput(const SDL_Event& event) {
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_SPACE) {
-			if (pointsL == pointsR == 0) pingPongPhysics_->onGameStart();
-			// else pingPongPhysics_->onGameStart();
-
+			if (pointsL == 0 && pointsR == 0 || pointsL == 5 || pointsR == 5)
+			{
+				pingPongPhysics_->onGameStart();
+				pointsL = 0;
+				pointsR = 0;
+			}
+			else
+				pingPongPhysics_->onRoundStart();
 			GameState.close();
 			startMsgTexture_.close();
 		}
@@ -99,6 +107,8 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 	case TOP: case BOT:
 		wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
 		wallHit_->play();
+		break;
+	default:
 		break;
 	}
 

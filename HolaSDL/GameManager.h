@@ -28,6 +28,7 @@ public:
 
 private:
 
+
 	Font* font_;
 
 	Texture startMsgTexture_;
