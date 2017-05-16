@@ -50,17 +50,19 @@ void PingPongPhysics::update(GameObject* o) {
 			{
 				observers[i]->onBorderExit(o, BallObserver::LEFT);
 			}
-			
 		}
 		else if (nextPos.getX() >= o->getGame()->getWindowWidth())
 		{
 			nextPos.setY(o->getGame()->getWindowHeight() - o->getHeight());
 			o->setPosition(nextPos);
 			o->setDirectionY(o->getDirection().getY() * -1);
+
 			for (int i = 0; i < observers.size(); i++)
 			{
 				observers[i]->onBorderExit(o, BallObserver::RIGHT);
 			}
+
+			
 		}
 		else if (nextPos.getY() <= 0)
 		{

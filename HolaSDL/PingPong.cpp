@@ -99,7 +99,7 @@ void PingPong::initGame() {
 	ball_->setPhysicsComponent(pingPongPhysics_);
 
 	// game manager
-	gameManager_ = new GameManager(this);
+	gameManager_ = new GameManager(this, left_paddle_, right_paddle_);
 
 	pingPongPhysics_->resgisterBallObserver(gameManager_);
 	gameManager_->registerGameStateObserver(pingPongPhysics_);

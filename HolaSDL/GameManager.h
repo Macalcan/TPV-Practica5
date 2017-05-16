@@ -12,7 +12,7 @@
 class GameManager: public GameObject, public BallObserver {
 
 public:
-	GameManager(SDLGame* game);
+	GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle);
 	virtual ~GameManager();
 
 	virtual void registerGameStateObserver(GameStateObserver* o);
@@ -43,6 +43,11 @@ private:
 	SDL_Color color;
 
 	GameStateObserver* pingPongPhysics_;
+
+	GameObject* left_paddle;
+	GameObject* right_paddle;
+
+	GameObject* last_paddle_hit;
 };
 
 #endif /* SCOREBOARD_H_ */

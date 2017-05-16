@@ -5,8 +5,8 @@
 #include "GameManager.h"
 using namespace std;
 
-GameManager::GameManager(SDLGame* game) :
-		GameObject(game), pointsL(0), pointsR(0) {
+GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle) :
+		GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle) {
 	font_ = game_->getResources()->getFont(SDLGame::NESChimera16);
 	color = { 255, 255, 255, 255 };
 	startMsgTexture_.loadFromText(getGame()->getRenderer(),
@@ -15,6 +15,7 @@ GameManager::GameManager(SDLGame* game) :
 	pointsL = pointsR = 0;
 	wallHit_ = game->getResources()->getSoundEffect(game->Wall_Hit);
 	paddleHit_ = game->getResources()->getSoundEffect(game->Paddle_Hit);
+	last_paddle_hit = nullptr;
 	
 }
 
@@ -67,6 +68,7 @@ void GameManager::onCollision(GameObject* ball, GameObject* o) {
 	else {
 		paddleHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Paddle_Hit);
 		paddleHit_->play();
+		last_paddle_hit = o;
 	}
 }
 
@@ -81,6 +83,7 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 		update();
 		startMsgTexture_.loadFromText(getGame()->getRenderer(),
 			"Press Space to Start", *font_, color);
+		last_paddle_hit = nullptr;
 
 		if (pointsL == 5){
 			GameState.loadFromText(game_->getRenderer(), "playerR won", *font_, color);
@@ -98,6 +101,7 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 		update();
 		startMsgTexture_.loadFromText(getGame()->getRenderer(),
 			"Press Space to Start", *font_, color);
+		last_paddle_hit = nullptr;
 
 		if (pointsR == 5){
 			GameState.loadFromText(game_->getRenderer(), "playerL won", *font_, color);
