@@ -96,6 +96,7 @@
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="StopOnBordersPhysics.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TimedObstacle.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +125,8 @@
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="StopOnBordersPhysics.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TimedObstacle.h" />
+    <ClInclude Include="TimedObstacleObserver.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
