@@ -12,6 +12,9 @@ public:
 	virtual ~TimedObstacle();
 	virtual void addObserver(TimedObstacleObserver* o);
 
+	virtual void onObstacleStateChange(GameObject* obs, bool state);
+	virtual void onObstacleCollision(GameObject* obs, GameObject* o);
+
 	virtual void update();
 	virtual void render() const;
 

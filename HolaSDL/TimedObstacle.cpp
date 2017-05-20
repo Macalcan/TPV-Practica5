@@ -52,6 +52,7 @@ void TimedObstacle::update(){
 			if (rand() % 2 == 0)
 			{
 				activated = true; //activates the obstacle
+				//onObstacleStateChange();
 				randomPos();
 			}
 		}
@@ -76,5 +77,20 @@ void TimedObstacle::randomPos(){
 }
 
 void TimedObstacle::render() const{
-	SDL_Rect{};
+	/*SDL_Rect rect;
+	rect = getRect();*/
+	
+}
+
+void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){
+	//if (state)
+
+}
+
+void TimedObstacle::onObstacleCollision(GameObject* obs, GameObject* o){
+	
+	for (int i = 0; i < observers.size(); i++)
+	{
+		observers[i]->onObstacleCollision(this, obs); //????
+	}
 }
