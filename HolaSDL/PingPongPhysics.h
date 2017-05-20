@@ -34,6 +34,8 @@ private:
 	int speed_;
 
 	bool stateRound;
+
+
 };
 
 #endif /* PINGPONGPHYSICS_H_ */

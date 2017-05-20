@@ -11,9 +11,22 @@ public:
 	TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball);
 	virtual ~TimedObstacle();
 	virtual void addObserver(TimedObstacleObserver* o);
-	
+
+	virtual void update();
+
+	virtual void onGameStart();
+	virtual void onGameOver();
+	virtual void onRoundStart();
+	virtual void onRoundOver();
+
 private:
-	int m_pTime, m_dTime;
+	int m_pTime, m_dTime, m_TimePassing;
+
+	bool activated;
+	
+	std::vector<TimedObstacleObserver*> observers;
+
+	
 };
 #endif
 
