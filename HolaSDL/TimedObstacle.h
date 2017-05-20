@@ -13,6 +13,7 @@ public:
 	virtual void addObserver(TimedObstacleObserver* o);
 
 	virtual void update();
+	virtual void render() const;
 
 	virtual void onGameStart();
 	virtual void onGameOver();
@@ -26,7 +27,7 @@ private:
 	
 	std::vector<TimedObstacleObserver*> observers;
 
-	
+	void randomPos(); //obstacle's random position
 };
 #endif
 

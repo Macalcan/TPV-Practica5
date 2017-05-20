@@ -17,6 +17,8 @@ protected:
 	Vector2D<int> pos_; // position
 	Vector2D<int> dir_; // direction
 
+	SDL_Rect rect;
+
 public:
 	GameObject(SDLGame* game);
 	GameObject(SDLGame* game, int width, int height, Vector2D<int> pos, Vector2D<int> dir);
@@ -54,6 +56,8 @@ public:
 	virtual void handleInput(const SDL_Event& event) = 0;
 	virtual void update() = 0;
 	virtual void render() = 0;
+
+	SDL_Rect getRect() { return rect = { pos_.getX(), pos_.getY(), width_, height_ }; }
 };
 
 #endif /* GAMEOBJECT_H_ */

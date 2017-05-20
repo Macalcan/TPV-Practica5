@@ -5,9 +5,11 @@ GameObject::GameObject(SDLGame* game) :
 }
 
 GameObject::GameObject(SDLGame* game, int width, int height, Vector2D<int> pos,
-		Vector2D<int> dir) :
-		game_(game), active_(true), moving_(true), width_(width), height_(
-				height), pos_(pos), dir_(dir) {
+	Vector2D<int> dir) :
+	game_(game), active_(true), moving_(true), width_(width), height_(
+	height), pos_(pos), dir_(dir) {
+
+
 }
 
 GameObject::~GameObject() {
@@ -97,3 +99,4 @@ void GameObject::setDirectionY(int y) {
 void GameObject::setDirection(int x, int y) {
 	dir_.set(x, y);
 }
+
