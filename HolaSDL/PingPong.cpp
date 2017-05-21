@@ -55,9 +55,6 @@ void PingPong::initGame() {
 	// use the following for an image of a tennis ball
 	// ball_->setRenderComponent(imageRenderer_);
 
-	//obstacle
-	obstacle_ = new GameComponent(this);
-	obstacle_->setRenderComponent(rectangleRenderer_);
 	
 	// left paddle
 	left_paddle_ = new GameComponent(this);
@@ -105,7 +102,7 @@ void PingPong::initGame() {
 	// game manager
 	gameManager_ = new GameManager(this, left_paddle_, right_paddle_);
 
-	timedObstacle_ = new TimedObstacle(this, 3000, 4000, ball_);
+	timedObstacle_ = new TimedObstacle(this, 3000, 8000, ball_);
 	timedObstacle_->addObserver(gameManager_);
 
 	/*wall_ = new GameComponent(this);

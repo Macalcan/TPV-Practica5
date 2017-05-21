@@ -57,7 +57,7 @@ void TimedObstacle::update(){
 			|| getPosition().getY() > m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() < m_ball->getPosition().getY()))
 		{
 			activated = false;
-			//m_ball->setDirectionX(m_ball->getDirection().getX()*-1);
+			m_ball->setDirectionX(m_ball->getDirection().getX()*-1);
 			onObstacleCollision();
 
 		}
@@ -92,8 +92,8 @@ void TimedObstacle::render() {
 
 void TimedObstacle::onObstacleStateChange(bool state){
 	if (state) {
-		setWidth(50);
-		setHeight(50);
+		setWidth(25);
+		setHeight(300);
 		setPosition(game_->getWindowWidth() / 2 - 100 + rand() % 200, rand() % (game_->getWindowHeight() - getHeight()));
 		setActive(true);
 		activated = true;
