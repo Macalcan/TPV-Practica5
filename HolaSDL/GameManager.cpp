@@ -18,7 +18,8 @@ powerUpPared({ 1111, 0, 10, game->getWindowHeight() }) {
 	paddleHit_ = game->getResources()->getSoundEffect(game->Paddle_Hit);
 	last_paddle_hit = nullptr;
 	obsState = false;
-	
+	obsR = false;
+	obsL = false;
 }
 
 GameManager::~GameManager() {
@@ -59,7 +60,12 @@ void GameManager::render() {
 	points.render(getGame()->getRenderer(), (getGame()->getWindowWidth() - points.getWidth()) / 2, getGame()->getWindowHeight() - 20);
 	GameState.render(getGame()->getRenderer(), (getGame()->getWindowWidth() - points.getWidth()) / 2, getGame()->getWindowHeight() - 60);
 	startMsgTexture_.render(getGame()->getRenderer(), (getGame()->getWindowWidth()-startMsgTexture_.getWidth())/ 2, getGame()->getWindowHeight()-40);
-	SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
+	
+
+	if (obsL || obsR)
+	{
+		SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
+	}
 }
 
 void GameManager::onCollision(GameObject* ball, GameObject* o) {
@@ -79,36 +85,44 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 
 	switch (side) {
 	case LEFT:
-		if (pointsL < 5){
-			pointsL++;
-			pingPongPhysics_->onRoundOver();
-		}
-		update();
-		startMsgTexture_.loadFromText(getGame()->getRenderer(),
-			"Press Space to Start", *font_, color);
-		last_paddle_hit = nullptr;
+		if (!obsL)
+		{
 
-		if (pointsL == 5){
-			GameState.loadFromText(game_->getRenderer(), "playerR won", *font_, color);
-			pingPongPhysics_->onGameOver();
+			if (pointsL < 5){
+				pointsL++;
+				pingPongPhysics_->onRoundOver();
+			}
+			update();
+			startMsgTexture_.loadFromText(getGame()->getRenderer(),
+				"Press Space to Start", *font_, color);
+			last_paddle_hit = nullptr;
+
+			if (pointsL == 5){
+				GameState.loadFromText(game_->getRenderer(), "playerR won", *font_, color);
+				pingPongPhysics_->onGameOver();
+			}
 		}
 		
 		
 		break;
 	case RIGHT:
-		if (pointsR < 5){
-			pointsR++;
-			pingPongPhysics_->onRoundOver();
-		}
+		if (!obsR)
+		{
 
-		update();
-		startMsgTexture_.loadFromText(getGame()->getRenderer(),
-			"Press Space to Start", *font_, color);
-		last_paddle_hit = nullptr;
+			if (pointsR < 5){
+				pointsR++;
+				pingPongPhysics_->onRoundOver();
+			}
 
-		if (pointsR == 5){
-			GameState.loadFromText(game_->getRenderer(), "playerL won", *font_, color);
-			pingPongPhysics_->onGameOver();
+			update();
+			startMsgTexture_.loadFromText(getGame()->getRenderer(),
+				"Press Space to Start", *font_, color);
+			last_paddle_hit = nullptr;
+
+			if (pointsR == 5){
+				GameState.loadFromText(game_->getRenderer(), "playerL won", *font_, color);
+				pingPongPhysics_->onGameOver();
+			}
 		}
 		
 		break;
@@ -132,16 +146,20 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 	if (!state) {
 		powerUpPared.x = -1111;
 		obs->setActive(false);
+		obsL = false;
+		obsR = false;
 	}
 }
 
 void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
 	if (last_paddle_hit->getPosition().getX() > getGame()->getWindowWidth() / 2) {
 		powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
+		obsR = true;
 	}
 
 	else {
 		powerUpPared.x = 0;
+		obsL = true;
 	}
 
 	wallHit_->play();

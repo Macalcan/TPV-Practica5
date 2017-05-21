@@ -13,7 +13,7 @@
 class GameManager : public GameObject, public BallObserver, public TimedObstacleObserver {
 
 public:
-	GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle, GameObject* obstacle);
+	GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle, GameObject* obstaclegit);
 	virtual ~GameManager();
 
 	virtual void registerGameStateObserver(GameStateObserver* o);
@@ -58,6 +58,8 @@ private:
 
 	GameObject* last_paddle_hit;
 
+	bool obsR;
+	bool obsL;
 	bool obsState;
 };
 
