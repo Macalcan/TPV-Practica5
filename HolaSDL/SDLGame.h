@@ -43,7 +43,7 @@ public:
 	// Sound Effects -- each file is loaded as an instance of SoundEffect
 	//
 	enum SoundEffectId {
-		Wall_Hit, Paddle_Hit
+		Wall_Hit, Paddle_Hit, music1, music2
 	};
 
 	static std::vector<std::string> soundEffectFiles_;

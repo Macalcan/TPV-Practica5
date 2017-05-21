@@ -16,7 +16,7 @@ std::vector<std::string> SDLGame::musicFiles_{ "../sound/beat.wav",
 "../sound/cheer.wav", "../sound/boooo.wav" };
 
 std::vector<std::string> SDLGame::soundEffectFiles_{ "../sound/wall_hit.wav",
-"../sound/paddle_hit.wav" };
+"../sound/paddle_hit.wav", "../sound/datMusicote.wav", "../sound/surpriseMusicote.wav" };
 
 SDLGame::SDLGame(std::string windowTitle, int width, int height) :
 		windowTitle_(windowTitle), width_(width), height_(height) {
