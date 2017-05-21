@@ -14,7 +14,6 @@
 #include "GameManager.h"
 #include "PingPongPhysics.h"
 #include "ComponentSwitcher.h"
-#include "TimedObstacleObserver.h"
 #include "TimedObstacle.h"
 
 class PingPong: public SDLGame {

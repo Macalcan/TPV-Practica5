@@ -5,9 +5,8 @@
 #include "GameManager.h"
 using namespace std;
 
-GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle, GameObject* obstacle) :
-GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle), obstacle_(obstacle), 
-powerUpPared({ 1111, 0, 10, game->getWindowHeight() }) {
+GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle) :
+GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle),powerUpPared({ 1111, 0, 10, game->getWindowHeight() }) {
 	font_ = game_->getResources()->getFont(SDLGame::NESChimera16);
 	color = { 255, 255, 255, 255 };
 	startMsgTexture_.loadFromText(getGame()->getRenderer(),

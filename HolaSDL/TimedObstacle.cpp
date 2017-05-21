@@ -1,5 +1,5 @@
 #include "TimedObstacle.h"
-#include "GameComponent.h"
+
 
 TimedObstacle::TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball) : GameObject(game), m_pTime(pTime), m_dTime(dTime), m_ball(ball)
 {

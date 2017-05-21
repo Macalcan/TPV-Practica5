@@ -103,10 +103,11 @@ void PingPong::initGame() {
 	ball_->setPhysicsComponent(pingPongPhysics_);
 
 	// game manager
-	gameManager_ = new GameManager(this, left_paddle_, right_paddle_, obstacle_);
+	gameManager_ = new GameManager(this, left_paddle_, right_paddle_);
 
 	timedObstacle_ = new TimedObstacle(this, 30000, 3000, ball_);
-	
+	timedObstacle_->addObserver(gameManager_);
+
 	pingPongPhysics_->resgisterBallObserver(gameManager_);
 	gameManager_->registerGameStateObserver(pingPongPhysics_);
 
@@ -133,6 +134,7 @@ void PingPong::closeGame() {
 	delete mousePaddleInput_;
 	delete paddleAIPhysics_;
 	delete pingPongPhysics_;
+	delete timedObstacle_;
 }
 
 void PingPong::start() {
