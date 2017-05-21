@@ -52,13 +52,13 @@ void TimedObstacle::onRoundOver(){
 void TimedObstacle::update(){
 	int pass = SDL_GetTicks() - m_TimePassing;
 	if (isActive()){
-		if (!activated&&
-			m_ball->getPosition().getX() > pos_.getX() && m_ball->getPosition().getX() < pos_.getX() + width_
-			&&
-			m_ball->getPosition().getY() > pos_.getY() && m_ball->getPosition().getY() < pos_.getY() + width_) {
-			activated = true;
-			m_ball->setDirectionX(m_ball->getDirection().getX()*-1);
-			onObstacleCollision(m_ball);
+		if (activated &&
+			!(getPosition().getX() > m_ball->getPosition().getX() + m_ball->getWidth() || getPosition().getX() + getWidth() < m_ball->getPosition().getX()
+			|| getPosition().getY() > m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() < m_ball->getPosition().getY()))
+		{
+			activated = false;
+			//m_ball->setDirectionX(m_ball->getDirection().getX()*-1);
+			onObstacleCollision();
 
 		}
 		if (pass > m_pTime){
@@ -86,8 +86,8 @@ void TimedObstacle::render() {
 	SDL_Rect rect = { pos.getX(), pos.getY(), getWidth(), getHeight() };
 
 	SDL_SetRenderDrawColor(renderer, color_.r, color_.g, color_.b, color_.a);
-
-	SDL_RenderFillRect(renderer, &rect);
+	if (activated)
+		SDL_RenderFillRect(renderer, &rect);
 }
 
 void TimedObstacle::onObstacleStateChange(bool state){
@@ -97,7 +97,7 @@ void TimedObstacle::onObstacleStateChange(bool state){
 		setPosition(game_->getWindowWidth() / 2 - 100 + rand() % 200, rand() % (game_->getWindowHeight() - getHeight()));
 		setActive(true);
 		activated = true;
-		cout << " something happened";
+		
 	}
 	else {
 		setActive(false);
@@ -110,15 +110,16 @@ void TimedObstacle::onObstacleStateChange(bool state){
 
 }
 
-void TimedObstacle::onObstacleCollision(GameObject* o){
+void TimedObstacle::onObstacleCollision(){
 	
-	if (getPosition().getX() >= m_ball->getPosition().getX() + m_ball->getWidth() || getPosition().getX() + getWidth() <= m_ball->getPosition().getX()
-		|| getPosition().getY() >= m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() <= m_ball->getPosition().getY())
-	{
+	//if (getPosition().getX() >= m_ball->getPosition().getX() + m_ball->getWidth() || getPosition().getX() + getWidth() <= m_ball->getPosition().getX()
+		//|| getPosition().getY() >= m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() <= m_ball->getPosition().getY())
+	//{
+		//cout << "COLLISION";
 		for (int i = 0; i < observers.size(); i++)
 		{
-			observers[i]->onObstacleCollision(this, o);
+			observers[i]->onObstacleCollision(this, m_ball);
 		}
-	}
+	//}
 	
 }

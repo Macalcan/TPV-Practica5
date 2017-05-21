@@ -159,8 +159,8 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
 	if (obs != nullptr)
 	{
-
-		if (last_paddle_hit->getPosition().getX() > getGame()->getWindowWidth() / 2) {
+		
+		if (last_paddle_hit == right_paddle) {
 			powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
 			obsR = true;
 		}
