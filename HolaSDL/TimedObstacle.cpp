@@ -1,5 +1,5 @@
 #include "TimedObstacle.h"
-
+#include "GameComponent.h"
 
 TimedObstacle::TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball) : GameObject(game), m_pTime(pTime), m_dTime(dTime)
 {
@@ -74,9 +74,18 @@ void TimedObstacle::update(){
 
 
 
-void TimedObstacle::render() const{
-	render();
-	
+void TimedObstacle::render() {
+	SDL_Color color_ = { 255, 255, 255, 255 };
+	const Vector2D<int> &pos = getPosition();
+	SDLGame* game = getGame();
+	SDL_Renderer* renderer = game->getRenderer();
+
+	SDL_Rect rect =
+	{ pos.getX(), pos.getY(), getWidth(), getHeight() };
+
+	SDL_SetRenderDrawColor(renderer, color_.r, color_.g, color_.b, color_.a);
+
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){

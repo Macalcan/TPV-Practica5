@@ -40,6 +40,7 @@ void PingPong::initGame() {
 	imageMouse_ = new ImageRendered(getResources()->getTexture(SDLGame::MouseIcon));
 	imageIA_ = new ImageRendered(getResources()->getTexture(SDLGame::AIIcon));
 
+	
 	// ball
 	ball_ = new GameComponent(this);
 	ball_->setWidth(10);
@@ -104,6 +105,8 @@ void PingPong::initGame() {
 	// game manager
 	gameManager_ = new GameManager(this, left_paddle_, right_paddle_, obstacle_);
 
+	timedObstacle_ = new TimedObstacle(this, 30000, 3000, ball_);
+	
 	pingPongPhysics_->resgisterBallObserver(gameManager_);
 	gameManager_->registerGameStateObserver(pingPongPhysics_);
 

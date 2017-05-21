@@ -32,17 +32,7 @@ void GameManager::update() {
 		std::string(std::to_string(pointsR) + " - " + std::to_string(pointsL)),
 		*font_, color);
 	
-	if (obsState)
-	{
-		if (last_paddle_hit == right_paddle)
-		{
-			//wall on right side
-		}
-		else
-		{
-			//wall on left side
-		}
-	}
+	
 }
 
 void GameManager::handleInput(const SDL_Event& event) {
@@ -77,9 +67,6 @@ void GameManager::onCollision(GameObject* ball, GameObject* o) {
 	if (o == nullptr){
 		//wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
 		wallHit_->play();
-	}
-	else if (o == obstacle_){
-		obsState = true; //the obstacle has been hit
 	}
 	else {
 		//paddleHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Paddle_Hit);

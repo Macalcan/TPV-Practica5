@@ -15,6 +15,7 @@
 #include "PingPongPhysics.h"
 #include "ComponentSwitcher.h"
 #include "TimedObstacleObserver.h"
+#include "TimedObstacle.h"
 
 class PingPong: public SDLGame {
 
@@ -61,6 +62,8 @@ private:
 	InputComponent* leftPaddleInput_;
 	InputComponent* rightPaddleInput_;
 	InputComponent* mousePaddleInput_;
+
+	TimedObstacle* timedObstacle_;
 	
 	std::vector<GameObject*> actors_;
 

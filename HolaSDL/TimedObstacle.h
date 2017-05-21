@@ -12,18 +12,22 @@ public:
 	virtual ~TimedObstacle();
 	virtual void addObserver(TimedObstacleObserver* o);
 
-	virtual void onObstacleStateChange(GameObject* obs, bool state);
-	virtual void onObstacleCollision(GameObject* obs, GameObject* o);
+	
 
 	virtual void update();
-	virtual void render() const;
+	virtual void render();
+	virtual void handleInput(const SDL_Event& event){}
 
 	virtual void onGameStart();
 	virtual void onGameOver();
 	virtual void onRoundStart();
 	virtual void onRoundOver();
 
-private:
+protected:
+
+	void onObstacleStateChange(GameObject* obs, bool state);
+	void onObstacleCollision(GameObject* obs, GameObject* o);
+
 	int m_pTime, m_dTime, m_TimePassing;
 
 	bool activated;
