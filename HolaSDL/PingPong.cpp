@@ -98,7 +98,7 @@ void PingPong::initGame() {
 	switcherRight_->setWidth(50);
 	switcherRight_->setHeight(50);
 	
-	pingPongPhysics_ = new PingPongPhysics(left_paddle_, right_paddle_, obstacle_);
+	pingPongPhysics_ = new PingPongPhysics(left_paddle_, right_paddle_);
 	ball_->setPhysicsComponent(pingPongPhysics_);
 
 	// game manager
