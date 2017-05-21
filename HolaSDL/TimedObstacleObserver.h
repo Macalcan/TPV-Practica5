@@ -7,9 +7,9 @@ class TimedObstacleObserver
 {
 public:
 
-	TimedObstacleObserver();
+	TimedObstacleObserver(){}
 
-	virtual ~TimedObstacleObserver();
+	virtual ~TimedObstacleObserver(){}
 
 	// Avisa a los observadores cuando se activa/desactiva el obstaculo
 	virtual void onObstacleStateChange(GameObject* obs, bool state) = 0;
