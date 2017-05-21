@@ -40,6 +40,7 @@ private:
 	GameComponent* left_paddle_;
 	GameComponent* right_paddle_;
 	GameComponent* obstacle_;
+	GameComponent* wall_;
 
 	GameManager* gameManager_;
 
@@ -54,6 +55,7 @@ private:
 	RenderComponent* imageKeyboard_;
 	RenderComponent* imageMouse_;
 	RenderComponent* imageIA_;
+	RenderComponent* obst_;
 
 	ComponentSwitcher* switcherLeft_;						
 	ComponentSwitcher* switcherRight_;

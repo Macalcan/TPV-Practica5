@@ -61,8 +61,14 @@ void GameManager::render() {
 	startMsgTexture_.render(getGame()->getRenderer(), (getGame()->getWindowWidth()-startMsgTexture_.getWidth())/ 2, getGame()->getWindowHeight()-40);
 	
 
-	if (obsL || obsR)
+	if (obsL)
 	{
+		powerUpPared.x = 0;
+		SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
+	}
+	else
+	{
+		powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
 		SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
 	}
 }

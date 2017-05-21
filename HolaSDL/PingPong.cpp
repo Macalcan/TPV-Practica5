@@ -105,8 +105,11 @@ void PingPong::initGame() {
 	// game manager
 	gameManager_ = new GameManager(this, left_paddle_, right_paddle_);
 
-	timedObstacle_ = new TimedObstacle(this, 30000, 3000, ball_);
+	timedObstacle_ = new TimedObstacle(this, 3000, 4000, ball_);
 	timedObstacle_->addObserver(gameManager_);
+
+	/*wall_ = new GameComponent(this);
+	wall_->setHeight(10);*/
 
 	pingPongPhysics_->resgisterBallObserver(gameManager_);
 	gameManager_->registerGameStateObserver(pingPongPhysics_);
