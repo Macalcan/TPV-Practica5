@@ -56,7 +56,7 @@ void TimedObstacle::update(){
 			{
 				activated = true; //activates the obstacle
 				onObstacleStateChange(this, false);
-				randomPos();
+			
 			}
 		}
 	}
@@ -72,13 +72,7 @@ void TimedObstacle::update(){
 	}
 }
 
-void TimedObstacle::randomPos(){
-	
-	setWidth(50); //obstacle's width
-	setHeight(50); //obstacle's height
-	setPositionY(rand() % game_->getWindowHeight()); //random Y position
-	setPositionX(rand() % game_->getWindowWidth()); //random X position
-}
+
 
 void TimedObstacle::render() const{
 	render();

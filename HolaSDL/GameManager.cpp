@@ -6,7 +6,8 @@
 using namespace std;
 
 GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle, GameObject* obstacle) :
-		GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle), obstacle_(obstacle) {
+GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle), obstacle_(obstacle), 
+powerUpPared({ 1111, 0, 10, game->getWindowHeight() }) {
 	font_ = game_->getResources()->getFont(SDLGame::NESChimera16);
 	color = { 255, 255, 255, 255 };
 	startMsgTexture_.loadFromText(getGame()->getRenderer(),
@@ -68,6 +69,7 @@ void GameManager::render() {
 	points.render(getGame()->getRenderer(), (getGame()->getWindowWidth() - points.getWidth()) / 2, getGame()->getWindowHeight() - 20);
 	GameState.render(getGame()->getRenderer(), (getGame()->getWindowWidth() - points.getWidth()) / 2, getGame()->getWindowHeight() - 60);
 	startMsgTexture_.render(getGame()->getRenderer(), (getGame()->getWindowWidth()-startMsgTexture_.getWidth())/ 2, getGame()->getWindowHeight()-40);
+	SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
 }
 
 void GameManager::onCollision(GameObject* ball, GameObject* o) {

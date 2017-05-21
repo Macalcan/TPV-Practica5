@@ -30,7 +30,7 @@ private:
 	
 	std::vector<TimedObstacleObserver*> observers;
 
-	void randomPos(); //obstacle's random position
+	
 };
 #endif
 
