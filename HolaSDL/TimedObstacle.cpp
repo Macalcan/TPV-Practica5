@@ -1,10 +1,13 @@
 #include "TimedObstacle.h"
-
+using namespace std;
 
 TimedObstacle::TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball) : GameObject(game), m_pTime(pTime), m_dTime(dTime), m_ball(ball)
 {
 	m_TimePassing = 0;
 	activated = false;
+	cout << m_pTime;
+	cout << "I'm active";
+	
 }
 
 
@@ -22,53 +25,53 @@ void TimedObstacle::addObserver(TimedObstacleObserver* o) {
 			search = true;
 	}
 
-	if (!search)
+	if (!search){
 		observers.emplace_back(o);
+		cout << " The observer has been added";
+	}
 }
 
 void TimedObstacle::onGameStart(){
-	onRoundStart();
+	setActive(true);
+	m_TimePassing = SDL_GetTicks();
 }
 
 void TimedObstacle::onGameOver(){
-	onRoundOver();
+	setActive(false);
 }
 
 void TimedObstacle::onRoundStart(){
-	setActive(true);
-	m_TimePassing = SDL_GetTicks();
+	onGameStart();
 
 }
 
 void TimedObstacle::onRoundOver(){
-	setActive(false);
+	onGameOver();
 }
 
 void TimedObstacle::update(){
-	m_TimePassing++; // counts time
-	m_pTime = SDL_GetTicks() - m_TimePassing;
-	if (isActive() && !activated) //if the game is on and there is no obstacle
-	{
-		if (m_TimePassing == m_pTime) //if pTime has passed 
-		{
-			m_TimePassing = 0; //restart the time passed
-			if (rand() % 2 == 0)
-			{
-				activated = true; //activates the obstacle
-				onObstacleStateChange(this, activated);
-			
-			}
+	int pass = SDL_GetTicks() - m_TimePassing;
+	if (isActive()){
+		if (!activated&&
+			m_ball->getPosition().getX() > pos_.getX() && m_ball->getPosition().getX() < pos_.getX() + width_
+			&&
+			m_ball->getPosition().getY() > pos_.getY() && m_ball->getPosition().getY() < pos_.getY() + width_) {
+			activated = true;
+			m_ball->setDirectionX(m_ball->getDirection().getX()*-1);
+			onObstacleCollision(m_ball);
+
+		}
+		if (pass > m_pTime){
+			onObstacleStateChange(false);
+			m_TimePassing += pass;
 		}
 	}
-	
-	else if (activated) //if there is an obstacle
-	{
-		if (m_TimePassing == m_dTime) //if it's time to deactivate the obstacle
-		{
-			onObstacleStateChange(this, activated);
-			m_TimePassing = 0; //restart the time passed
-			activated = false; //deactivate the obstacle
+	else{
+		if (pass > m_dTime){
+			onObstacleStateChange(true);
+			m_TimePassing += pass;
 		}
+
 	}
 }
 
@@ -80,21 +83,21 @@ void TimedObstacle::render() {
 	SDLGame* game = getGame();
 	SDL_Renderer* renderer = game->getRenderer();
 
-	SDL_Rect rect =
-	{ pos.getX(), pos.getY(), getWidth(), getHeight() };
+	SDL_Rect rect = { pos.getX(), pos.getY(), getWidth(), getHeight() };
 
 	SDL_SetRenderDrawColor(renderer, color_.r, color_.g, color_.b, color_.a);
 
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){
+void TimedObstacle::onObstacleStateChange(bool state){
 	if (state) {
 		setWidth(50);
 		setHeight(50);
 		setPosition(game_->getWindowWidth() / 2 - 100 + rand() % 200, rand() % (game_->getWindowHeight() - getHeight()));
 		setActive(true);
-		activated = false;
+		activated = true;
+		cout << " something happened";
 	}
 	else {
 		setActive(false);
@@ -107,14 +110,14 @@ void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){
 
 }
 
-void TimedObstacle::onObstacleCollision(GameObject* obs, GameObject* o){
+void TimedObstacle::onObstacleCollision(GameObject* o){
 	
 	if (getPosition().getX() >= m_ball->getPosition().getX() + m_ball->getWidth() || getPosition().getX() + getWidth() <= m_ball->getPosition().getX()
 		|| getPosition().getY() >= m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() <= m_ball->getPosition().getY())
 	{
 		for (int i = 0; i < observers.size(); i++)
 		{
-			observers[i]->onObstacleCollision(this, obs);
+			observers[i]->onObstacleCollision(this, o);
 		}
 	}
 	

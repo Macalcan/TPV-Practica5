@@ -25,8 +25,8 @@ public:
 
 protected:
 
-	void onObstacleStateChange(GameObject* obs, bool state);
-	void onObstacleCollision(GameObject* obs, GameObject* o);
+	void onObstacleStateChange(bool state);
+	void onObstacleCollision(GameObject* o);
 
 	int m_pTime, m_dTime, m_TimePassing;
 	

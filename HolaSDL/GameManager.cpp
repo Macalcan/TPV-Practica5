@@ -61,16 +61,12 @@ void GameManager::render() {
 	startMsgTexture_.render(getGame()->getRenderer(), (getGame()->getWindowWidth()-startMsgTexture_.getWidth())/ 2, getGame()->getWindowHeight()-40);
 	
 
-	if (obsL)
+	if (obsL || obsR)
 	{
-		powerUpPared.x = 0;
+
 		SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
 	}
-	else
-	{
-		powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
-		SDL_RenderFillRect(game_->getRenderer(), &powerUpPared);
-	}
+	
 }
 
 void GameManager::onCollision(GameObject* ball, GameObject* o) {
@@ -154,18 +150,26 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 		obsL = false;
 		obsR = false;
 	}
+	else
+	{
+		obsState = state;
+	}
 }
 
 void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
-	if (last_paddle_hit->getPosition().getX() > getGame()->getWindowWidth() / 2) {
-		powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
-		obsR = true;
-	}
+	if (obs != nullptr)
+	{
 
-	else {
-		powerUpPared.x = 0;
-		obsL = true;
-	}
+		if (last_paddle_hit->getPosition().getX() > getGame()->getWindowWidth() / 2) {
+			powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
+			obsR = true;
+		}
 
-	wallHit_->play();
+		else {
+			powerUpPared.x = 0;
+			obsL = true;
+		}
+
+		wallHit_->play();
+	}
 }
