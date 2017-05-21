@@ -31,6 +31,17 @@ void GameManager::update() {
 		std::string(std::to_string(pointsR) + " - " + std::to_string(pointsL)),
 		*font_, color);
 	
+	if (obsState)
+	{
+		if (last_paddle_hit == right_paddle)
+		{
+			//wall on right side
+		}
+		else
+		{
+			//wall on left side
+		}
+	}
 }
 
 void GameManager::handleInput(const SDL_Event& event) {
@@ -126,4 +137,23 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 
 void GameManager::registerGameStateObserver(GameStateObserver* o) {
 	pingPongPhysics_ = o;
+}
+
+void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
+	if (!state) {
+		powerUpPared.x = -1111;
+		obs->setActive(false);
+	}
+}
+
+void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
+	if (last_paddle_hit->getPosition().getX() > getGame()->getWindowWidth() / 2) {
+		powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
+	}
+
+	else {
+		powerUpPared.x = 0;
+	}
+
+	wallHit_->play();
 }

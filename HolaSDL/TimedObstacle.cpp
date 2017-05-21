@@ -36,6 +36,8 @@ void TimedObstacle::onGameOver(){
 
 void TimedObstacle::onRoundStart(){
 	setActive(true);
+	m_TimePassing = SDL_GetTicks();
+
 }
 
 void TimedObstacle::onRoundOver(){
@@ -44,7 +46,8 @@ void TimedObstacle::onRoundOver(){
 
 void TimedObstacle::update(){
 	m_TimePassing++; // counts time
-	if (isActive && !activated) //if the game is on and there is no obstacle
+	m_pTime = SDL_GetTicks() - m_TimePassing;
+	if (isActive() && !activated) //if the game is on and there is no obstacle
 	{
 		if (m_TimePassing == m_pTime) //if pTime has passed 
 		{
@@ -52,7 +55,7 @@ void TimedObstacle::update(){
 			if (rand() % 2 == 0)
 			{
 				activated = true; //activates the obstacle
-				//onObstacleStateChange();
+				onObstacleStateChange(this, false);
 				randomPos();
 			}
 		}
@@ -62,6 +65,7 @@ void TimedObstacle::update(){
 	{
 		if (m_TimePassing == m_dTime) //if it's time to deactivate the obstacle
 		{
+			onObstacleStateChange(this, true);
 			m_TimePassing = 0; //restart the time passed
 			activated = false; //deactivate the obstacle
 		}
@@ -77,13 +81,26 @@ void TimedObstacle::randomPos(){
 }
 
 void TimedObstacle::render() const{
-	/*SDL_Rect rect;
-	rect = getRect();*/
+	render();
 	
 }
 
 void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){
-	//if (state)
+	if (state) {
+		setWidth(50);
+		setHeight(50);
+		setPosition(game_->getWindowWidth() / 2 - 100 + rand() % 200, rand() % (game_->getWindowHeight() - getHeight()));
+		setActive(true);
+		activated = false;
+	}
+	else {
+		setActive(false);
+		activated = false;
+	}
+	for (int i = 0; i < observers.size(); i++)
+	{
+		observers[i]->onObstacleStateChange(this, state);
+	}
 
 }
 
@@ -91,6 +108,6 @@ void TimedObstacle::onObstacleCollision(GameObject* obs, GameObject* o){
 	
 	for (int i = 0; i < observers.size(); i++)
 	{
-		observers[i]->onObstacleCollision(this, obs); //????
+		observers[i]->onObstacleCollision(this, obs); 
 	}
 }

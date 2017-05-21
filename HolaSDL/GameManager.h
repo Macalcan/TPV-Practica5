@@ -48,6 +48,7 @@ private:
 	int pointsL, pointsR;
 
 	SDL_Color color;
+	SDL_Rect powerUpPared;
 
 	GameStateObserver* pingPongPhysics_;
 
