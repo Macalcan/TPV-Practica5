@@ -1,7 +1,7 @@
 #include "TimedObstacle.h"
 #include "GameComponent.h"
 
-TimedObstacle::TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball) : GameObject(game), m_pTime(pTime), m_dTime(dTime)
+TimedObstacle::TimedObstacle(SDLGame* game, int pTime, int dTime, GameObject* ball) : GameObject(game), m_pTime(pTime), m_dTime(dTime), m_ball(ball)
 {
 	m_TimePassing = 0;
 	activated = false;
@@ -55,7 +55,7 @@ void TimedObstacle::update(){
 			if (rand() % 2 == 0)
 			{
 				activated = true; //activates the obstacle
-				onObstacleStateChange(this, false);
+				onObstacleStateChange(this, activated);
 			
 			}
 		}
@@ -65,7 +65,7 @@ void TimedObstacle::update(){
 	{
 		if (m_TimePassing == m_dTime) //if it's time to deactivate the obstacle
 		{
-			onObstacleStateChange(this, true);
+			onObstacleStateChange(this, activated);
 			m_TimePassing = 0; //restart the time passed
 			activated = false; //deactivate the obstacle
 		}
@@ -109,8 +109,13 @@ void TimedObstacle::onObstacleStateChange(GameObject* obs, bool state){
 
 void TimedObstacle::onObstacleCollision(GameObject* obs, GameObject* o){
 	
-	for (int i = 0; i < observers.size(); i++)
+	if (getPosition().getX() >= m_ball->getPosition().getX() + m_ball->getWidth() || getPosition().getX() + getWidth() <= m_ball->getPosition().getX()
+		|| getPosition().getY() >= m_ball->getPosition().getY() + m_ball->getHeight() || getPosition().getY() + getHeight() <= m_ball->getPosition().getY())
 	{
-		observers[i]->onObstacleCollision(this, obs); 
+		for (int i = 0; i < observers.size(); i++)
+		{
+			observers[i]->onObstacleCollision(this, obs);
+		}
 	}
+	
 }

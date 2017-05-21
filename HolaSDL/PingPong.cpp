@@ -117,6 +117,7 @@ void PingPong::initGame() {
 	actors_.push_back(right_paddle_);
 	actors_.push_back(ball_);
 	actors_.push_back(gameManager_);
+	actors_.push_back(timedObstacle_);
 }
 
 void PingPong::closeGame() {

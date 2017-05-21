@@ -29,9 +29,10 @@ protected:
 	void onObstacleCollision(GameObject* obs, GameObject* o);
 
 	int m_pTime, m_dTime, m_TimePassing;
-
-	bool activated;
 	
+	bool activated;
+	 
+	GameObject* m_ball;
 	std::vector<TimedObstacleObserver*> observers;
 
 	
