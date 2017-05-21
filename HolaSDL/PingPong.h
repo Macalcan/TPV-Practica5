@@ -14,6 +14,7 @@
 #include "GameManager.h"
 #include "PingPongPhysics.h"
 #include "ComponentSwitcher.h"
+#include "TimedObstacleObserver.h"
 
 class PingPong: public SDLGame {
 
@@ -38,6 +39,7 @@ private:
 	GameComponent* ball_;
 	GameComponent* left_paddle_;
 	GameComponent* right_paddle_;
+	GameComponent* obstacle_;
 
 	GameManager* gameManager_;
 

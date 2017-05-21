@@ -54,7 +54,10 @@ void PingPong::initGame() {
 	// use the following for an image of a tennis ball
 	// ball_->setRenderComponent(imageRenderer_);
 
-
+	//obstacle
+	obstacle_ = new GameComponent(this);
+	obstacle_->setRenderComponent(rectangleRenderer_);
+	
 	// left paddle
 	left_paddle_ = new GameComponent(this);
 	left_paddle_->setWidth(10);

@@ -8,7 +8,7 @@
 
 class PingPongPhysics: public PhysicsComponent, public GameStateObserver {
 public:
-	PingPongPhysics(GameObject* left_paddle, GameObject* right_paddle);
+	PingPongPhysics(GameObject* left_paddle, GameObject* right_paddle, GameObject* obstacle);
 	virtual ~PingPongPhysics();
 
 	virtual void resgisterBallObserver(BallObserver* o);
@@ -27,6 +27,7 @@ public:
 private:
 	GameObject* left_paddle_;
 	GameObject* right_paddle_;
+	GameObject* obstacle_;
 	std::vector<BallObserver*> observers;
 
 	void prepareRound(GameObject* o);
@@ -34,7 +35,9 @@ private:
 	int speed_;
 
 	bool stateRound;
-
+	bool paddleHit;
+	bool obstacleHit;
+	bool wallHit;
 
 };
 

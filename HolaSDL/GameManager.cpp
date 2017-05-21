@@ -5,8 +5,8 @@
 #include "GameManager.h"
 using namespace std;
 
-GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle) :
-		GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle) {
+GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* right_paddle, GameObject* obstacle) :
+		GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle(right_paddle), obstacle_(obstacle) {
 	font_ = game_->getResources()->getFont(SDLGame::NESChimera16);
 	color = { 255, 255, 255, 255 };
 	startMsgTexture_.loadFromText(getGame()->getRenderer(),
@@ -16,6 +16,7 @@ GameManager::GameManager(SDLGame* game, GameObject* left_paddle, GameObject* rig
 	wallHit_ = game->getResources()->getSoundEffect(game->Wall_Hit);
 	paddleHit_ = game->getResources()->getSoundEffect(game->Paddle_Hit);
 	last_paddle_hit = nullptr;
+	obsState = false;
 	
 }
 
@@ -61,12 +62,14 @@ void GameManager::render() {
 void GameManager::onCollision(GameObject* ball, GameObject* o) {
 
 	if (o == nullptr){
-		wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
+		//wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
 		wallHit_->play();
 	}
-	
+	else if (o == obstacle_){
+		obsState = true; //the obstacle has been hit
+	}
 	else {
-		paddleHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Paddle_Hit);
+		//paddleHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Paddle_Hit);
 		paddleHit_->play();
 		last_paddle_hit = o;
 	}
