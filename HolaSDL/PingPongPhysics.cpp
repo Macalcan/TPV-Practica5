@@ -104,7 +104,7 @@ void PingPongPhysics::update(GameObject* o) {
 			paddle = right_paddle_;
 		}
 		//checks if the ball hits the obstacle
-		else if (nextPos.getX() < o->getGame()->getWindowWidth() / 2) //if the ball hits the obstacle from the left
+		else if (nextPos.getX() < o->getGame()->getWindowWidth() / 2 && obstacle_->isActive()) //if the ball hits the obstacle from the left
 		{
 			if (nextPos.getX() >= obstacle_->getPosition().getX() && nextPos.getX() <= (obstacle_->getPosition().getX() + obstacle_->getWidth())
 				&& nextPos.getY() >= obstacle_->getPosition().getY() && nextPos.getY() <= (obstacle_->getPosition().getY() + obstacle_->getHeight()))
@@ -112,7 +112,7 @@ void PingPongPhysics::update(GameObject* o) {
 				obstacleHit = true;
 			}
 		}
-		else if (nextPos.getX() > o->getGame()->getWindowWidth() / 2) //if the ball hits the obstacle from the right
+		else if (nextPos.getX() > o->getGame()->getWindowWidth() / 2 && obstacle_->isActive()) //if the ball hits the obstacle from the right
 		{
 			if (nextPos.getX() >= obstacle_->getPosition().getX() && nextPos.getX() <= (obstacle_->getPosition().getX() + obstacle_->getWidth())
 				&& nextPos.getY() >= obstacle_->getPosition().getY() && nextPos.getY() <= (obstacle_->getPosition().getY() + obstacle_->getHeight()))
