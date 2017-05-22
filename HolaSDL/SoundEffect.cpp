@@ -26,6 +26,7 @@ void SoundEffect::play(int repetirions) {
 }
 
 void SoundEffect::pause() {
+	Mix_HaltChannel(-1);
 }
 
 void SoundEffect::close() {

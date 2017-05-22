@@ -149,6 +149,7 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 		obs->setActive(false);
 		obsL = false;
 		obsR = false;
+		music_->pause();
 	}
 	else
 	{
@@ -158,14 +159,12 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 
 void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
 	if (obs != nullptr)
-	{
-		music_ = o->getGame()->getResources()->getSoundEffect(SDLGame::music2);
-		
+	{	
 		music_ = o->getGame()->getResources()->getSoundEffect(SDLGame::music2);
 		if (last_paddle_hit == right_paddle) {
 			powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
 			obsR = true;
-			//music_->play();
+			music_->play();
 		}
 
 		else {
