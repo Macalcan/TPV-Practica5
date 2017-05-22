@@ -15,8 +15,7 @@ GameObject(game), pointsL(0), pointsR(0), left_paddle(left_paddle), right_paddle
 	pointsL = pointsR = 0;
 	wallHit_ = game->getResources()->getSoundEffect(game->Wall_Hit);
 	paddleHit_ = game->getResources()->getSoundEffect(game->Paddle_Hit);
-	musicD_ = game->getResources()->getSoundEffect(game->music1);
-	musicL_ = game->getResources()->getSoundEffect(game->music2);
+	music_ = game->getResources()->getSoundEffect(game->music2);
 	last_paddle_hit = nullptr;
 	obsState = false;
 	obsR = false;
@@ -33,7 +32,6 @@ void GameManager::update() {
 	points.loadFromText(getGame()->getRenderer(),
 		std::string(std::to_string(pointsR) + " - " + std::to_string(pointsL)),
 		*font_, color);
-	
 	
 }
 
@@ -74,7 +72,7 @@ void GameManager::render() {
 void GameManager::onCollision(GameObject* ball, GameObject* o) {
 
 	if (o == nullptr){
-		//wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
+		wallHit_ = ball->getGame()->getResources()->getSoundEffect(SDLGame::Wall_Hit);
 		wallHit_->play();
 	}
 	else {
@@ -90,7 +88,7 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 	case LEFT:
 		if (!obsL)
 		{
-			musicL_->pause();
+			music_->pause();
 			if (pointsL < 5){
 				pointsL++;
 				pingPongPhysics_->onRoundOver();
@@ -111,7 +109,7 @@ void GameManager::onBorderExit(GameObject* ball, BallObserver::EXIT_SIDE side) {
 	case RIGHT:
 		if (!obsR)
 		{
-			musicD_->pause();
+			music_->pause();
 			if (pointsR < 5){
 				pointsR++;
 				pingPongPhysics_->onRoundOver();
@@ -161,20 +159,22 @@ void GameManager::onObstacleStateChange(GameObject* obs, bool state) {
 void GameManager::onObstacleCollision(GameObject* obs, GameObject* o) {
 	if (obs != nullptr)
 	{
+		music_ = o->getGame()->getResources()->getSoundEffect(SDLGame::music2);
 		
+		music_ = o->getGame()->getResources()->getSoundEffect(SDLGame::music2);
 		if (last_paddle_hit == right_paddle) {
 			powerUpPared.x = game_->getWindowWidth() - powerUpPared.w;
 			obsR = true;
-			musicD_->play();
+			//music_->play();
 		}
 
 		else {
 			powerUpPared.x = 0;
 			obsL = true;
-			musicL_->play();
+			music_->play();
 		}
 
 		wallHit_->play();
-		//musicD_->play();
+		
 	}
 }

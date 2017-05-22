@@ -44,8 +44,8 @@ private:
 
 	SoundEffect* wallHit_;
 	SoundEffect* paddleHit_;
-	SoundEffect* musicL_;
-	SoundEffect* musicD_;
+
+	SoundEffect* music_;
 
 	int pointsL, pointsR;
 
